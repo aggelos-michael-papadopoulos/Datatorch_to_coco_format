@@ -57,8 +57,6 @@ def convert_datatorch2_coco(datatorch_path, coco_json2save_path):
             if id == ann['image_id']:
                 group_ann_dict['image_id'] = id
                 if 'segmentation' in ann.keys() and ann['segmentation']:
-                    # group_ann_dict['segmentation'] = ann['segmentation']
-                    # segmentation.append(group_ann_dict['segmentation'])
                     group_ann_dict['segmentation'].append(ann['segmentation'])
                     group_ann_dict['bbox'].append(ann['bbox'])
                     group_ann_dict['area'].append(ann['area'])
@@ -107,7 +105,7 @@ def convert_datatorch2_coco(datatorch_path, coco_json2save_path):
                     print(f'processing annotations ... \n found {ann_id} annotations')
                     keypoint_clone.remove(kp)
                     break
-            # [skeleton_point for skeleton_point in pairwise([math.ceil(i) for i in kp])]
+
             ann_id += 1
             final_annotation_list.append(ann_dict)
 
@@ -125,4 +123,4 @@ convert_datatorch2_coco(datatorch_path, coco_json_path)
 
 
 # important note: the import json doesn't save tuples so the 'keypoints' are saved as
-# [[x,y],[x,y] ... ]
+# [[x,y],[x,y] ... ] and not as [(x,y), (x,y)]
